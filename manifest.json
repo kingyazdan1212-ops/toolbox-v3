@@ -8,6 +8,12 @@
   "lang": "fa",
   "dir": "rtl",
   "icons": [
+  {
+  "src": "icon.png",
+  "sizes": "1254x1254",
+  "type": "image/png",
+  "purpose": "any maskable"
+  }
     {
       "src": "icon.svg",
       "sizes": "any",
