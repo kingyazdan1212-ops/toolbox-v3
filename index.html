@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ToolBox | جعبه‌ابزار آنلاین</title>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b1020">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#0b1020;color:#eef2ff;min-height:100vh}
+button,input,textarea,select{font:inherit}.wrap{max-width:1100px;margin:auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.logo{font-size:25px;font-weight:900}.logo span{color:#7c9cff}
+.subtitle{color:#9ca8c7;margin-top:6px;font-size:14px}
+#theme{border:1px solid #293352;background:#151d35;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer}
+.hero{background:linear-gradient(135deg,#172449,#11182d);border:1px solid #2a3962;border-radius:24px;padding:28px;margin-bottom:22px}
+.hero h1{margin:0 0 10px;font-size:30px}.hero p{color:#b8c2df;margin:0;line-height:1.9}
+.search{margin-top:20px;width:100%;padding:14px 16px;border-radius:14px;border:1px solid #334263;background:#0c1327;color:#fff;outline:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.card{background:#11182b;border:1px solid #263250;border-radius:18px;padding:20px;cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:#5874d8}.icon{font-size:30px}.card h3{margin:12px 0 7px}.card p{color:#9da9c6;font-size:13px;line-height:1.7;margin:0}
+.panel{display:none;background:#11182b;border:1px solid #293655;border-radius:20px;padding:22px;margin-top:20px}.panel.active{display:block}
+.panel h2{margin-top:0}.row{display:flex;gap:10px;flex-wrap:wrap}.field{flex:1;min-width:180px}
+label{display:block;color:#aeb9d4;font-size:13px;margin:8px 0}
+input,textarea,select{width:100%;padding:12px;border-radius:12px;border:1px solid #33415f;background:#0b1224;color:#fff;outline:none}
+textarea{min-height:150px;resize:vertical}.btn{margin-top:12px;padding:12px 17px;border:0;border-radius:12px;background:#6f89ff;color:white;cursor:pointer;font-weight:bold}.btn.alt{background:#263453}
+.result{margin-top:14px;padding:14px;border-radius:12px;background:#0b1224;border:1px solid #273653;color:#dce4ff;min-height:46px}
+.colorbox{height:90px;border-radius:14px;margin-top:15px;border:1px solid #354361}
+.timer{font-size:52px;text-align:center;margin:15px 0;font-variant-numeric:tabular-nums}
+footer{text-align:center;color:#73809f;padding:30px 0 10px;font-size:12px}
+.light{background:#f4f6fb;color:#172033}.light .hero{background:linear-gradient(135deg,#fff,#eaf0ff);border-color:#d9e0ef}.light .hero p{color:#59657f}
+.light .card,.light .panel{background:#fff;border-color:#dce2ef}.light input,.light textarea,.light select,.light .result{background:#f7f9fc;color:#172033;border-color:#d6deed}.light #theme{background:#fff;color:#172033;border-color:#d6deed}
+@media(max-width:600px){.wrap{padding:15px}.hero h1{font-size:25px}.timer{font-size:42px}}
+
+.hero-badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#24345f;color:#9fb3ff;font-size:12px;font-weight:bold;margin-bottom:12px}
+.search-wrap{display:flex;align-items:center;gap:8px;margin-top:20px;background:#0c1327;border:1px solid #334263;border-radius:14px;padding:0 14px}.search-wrap .search{margin:0;border:0;padding:14px 0}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{border:1px solid #334263;background:#151d35;color:#cbd5f0;border-radius:999px;padding:8px 12px;cursor:pointer}.chip.active{background:#6f89ff;color:#fff;border-color:#6f89ff}
+.install{display:none}.install.show{display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div><div class="logo">🧰 Tool<span>Box</span></div><div class="subtitle">جعبه‌ابزار آنلاین سریع و کاربردی</div></div><div class="top-actions"><button id="installBtn" class="install" style="border:1px solid #293352;background:#151d35;color:#fff;border-radius:12px;padding:10px 14px;cursor:pointer">📲 نصب</button> <button id="theme">☀️ حالت روشن</button></div></header>
+
+<section class="hero">
+<div class="hero-badge">⚡ ToolBox v3</div>
+<h1>ابزارهای کاربردی، همه در یک‌جا</h1>
+<p>سریع، ساده و مناسب موبایل؛ بدون نیاز به نصب. ابزار موردنظرت را جست‌وجو کن یا از دسته‌بندی‌ها انتخاب کن.</p>
+<div class="search-wrap"><span>🔎</span><input class="search" id="search" placeholder="جست‌وجوی ابزار، مثل BMI یا QR..."></div>
+<div class="chips">
+<button class="chip active" data-filter="all">همه</button>
+<button class="chip" data-filter="math">🔢 محاسبات</button>
+<button class="chip" data-filter="text">✍️ متن</button>
+<button class="chip" data-filter="dev">💻 برنامه‌نویسی</button>
+<button class="chip" data-filter="media">🎨 ابزارها</button>
+</div>
+</section>
+
+<section class="grid" id="cards">
+<div class="card" data-tool="calc" data-cat="math"><div class="icon">🔢</div><h3>محاسبه‌گر</h3><p>محاسبه سریع عبارت‌های ریاضی.</p></div>
+<div class="card" data-tool="unit" data-cat="math"><div class="icon">🔄</div><h3>تبدیل واحد</h3><p>تبدیل طول، وزن و دما.</p></div>
+<div class="card" data-tool="qr" data-cat="media"><div class="icon">📱</div><h3>ساخت QR Code</h3><p>تبدیل متن یا لینک به QR.</p></div>
+<div class="card" data-tool="text" data-cat="text"><div class="icon">🔤</div><h3>شمارشگر متن</h3><p>تعداد حروف، کلمات و خطوط را بشمار.</p></div>
+<div class="card" data-tool="color" data-cat="media"><div class="icon">🎨</div><h3>HEX / RGB</h3><p>تبدیل رنگ بین HEX و RGB.</p></div>
+<div class="card" data-tool="timer" data-cat="math"><div class="icon">⏱️</div><h3>تایمر</h3><p>تایمر تمرکز با کنترل شروع و توقف.</p></div>
+
+<div class="card" data-tool="bmi" data-cat="math"><div class="icon">⚖️</div><h3>محاسبه BMI</h3><p>محاسبه شاخص توده بدنی.</p></div>
+<div class="card" data-tool="age" data-cat="math"><div class="icon">🎂</div><h3>محاسبه سن</h3><p>سن تقریبی را از تاریخ تولد حساب کن.</p></div>
+<div class="card" data-tool="percent" data-cat="math"><div class="icon">📊</div><h3>درصد</h3><p>درصد یک عدد یا درصد تغییر را حساب کن.</p></div>
+<div class="card" data-tool="dateDiff" data-cat="math"><div class="icon">📅</div><h3>فاصله تاریخ</h3><p>تعداد روزهای بین دو تاریخ را پیدا کن.</p></div>
+<div class="card" data-tool="wordRev" data-cat="text"><div class="icon">🔁</div><h3>معکوس‌کننده متن</h3><p>ترتیب حروف متن را برعکس کن.</p></div>
+<div class="card" data-tool="slug" data-cat="dev"><div class="icon">🔗</div><h3>Slug ساز</h3><p>متن انگلیسی را به slug مناسب لینک تبدیل کن.</p></div>
+<div class="card" data-tool="base64" data-cat="dev"><div class="icon">🧩</div><h3>Base64</h3><p>متن را به Base64 تبدیل یا از آن برگردان.</p></div>
+<div class="card" data-tool="json" data-cat="dev"><div class="icon">{ }</div><h3>JSON Formatter</h3><p>JSON را مرتب و خوانا کن.</p></div>
+<div class="card" data-tool="pass" data-cat="media"><div class="icon">🔐</div><h3>رمزساز</h3><p>یک رمز تصادفی و قوی تولید کن.</p></div>
+<div class="card" data-tool="random" data-cat="math"><div class="icon">🎲</div><h3>عدد تصادفی</h3><p>بین دو عدد، عدد تصادفی بساز.</p></div>
+
+<div class="card" data-tool="calc2" data-cat="math"><div class="icon">➗</div><h3>محاسبه‌گر درصد تغییر</h3><p>درصد افزایش یا کاهش بین دو مقدار.</p></div>
+<div class="card" data-tool="tip" data-cat="math"><div class="icon">💵</div><h3>محاسبه انعام</h3><p>انعام و سهم هر نفر را حساب کن.</p></div>
+<div class="card" data-tool="discount" data-cat="math"><div class="icon">🏷️</div><h3>محاسبه تخفیف</h3><p>قیمت نهایی بعد از تخفیف را پیدا کن.</p></div>
+<div class="card" data-tool="words" data-cat="text"><div class="icon">🔠</div><h3>تبدیل حروف</h3><p>حروف انگلیسی را بزرگ یا کوچک کن.</p></div>
+<div class="card" data-tool="removeSpace" data-cat="text"><div class="icon">🧹</div><h3>پاک‌سازی متن</h3><p>فاصله‌های اضافی متن را حذف کن.</p></div>
+<div class="card" data-tool="sortLines" data-cat="text"><div class="icon">📑</div><h3>مرتب‌سازی خطوط</h3><p>خطوط متن را الفبایی مرتب کن.</p></div>
+<div class="card" data-tool="countChars" data-cat="text"><div class="icon">🔢</div><h3>محدودکننده متن</h3><p>تعداد کاراکترهای متن را سریع بررسی کن.</p></div>
+<div class="card" data-tool="urlEncode" data-cat="dev"><div class="icon">🌐</div><h3>URL Encoder</h3><p>متن را برای استفاده در URL رمزگذاری کن.</p></div>
+<div class="card" data-tool="htmlEscape" data-cat="dev"><div class="icon">&lt;/&gt;</div><h3>HTML Escape</h3><p>کاراکترهای خاص HTML را تبدیل کن.</p></div>
+<div class="card" data-tool="timestamp" data-cat="dev"><div class="icon">🕐</div><h3>Unix Timestamp</h3><p>زمان فعلی را به timestamp تبدیل کن.</p></div>
+<div class="card" data-tool="colorName" data-cat="media"><div class="icon">🌈</div><h3>انتخاب رنگ</h3><p>رنگ انتخاب کن و HEX آن را بگیر.</p></div>
+<div class="card" data-tool="imageInfo" data-cat="media"><div class="icon">🖼️</div><h3>اطلاعات تصویر</h3><p>ابعاد و حجم تصویر را بررسی کن.</p></div>
+<div class="card" data-tool="stopwatch" data-cat="math"><div class="icon">⏱️</div><h3>کرنومتر</h3><p>زمان را دقیق اندازه‌گیری کن.</p></div>
+<div class="card" data-tool="coin" data-cat="math"><div class="icon">🪙</div><h3>شیر یا خط</h3><p>یک انتخاب تصادفی سریع.</p></div>
+</section>
+
+<div class="panel" id="calc"><h2>🔢 محاسبه‌گر</h2><input id="calcIn" placeholder="مثلاً 25*4+10/2"><button class="btn" onclick="calculate()">محاسبه</button><div class="result" id="calcOut">نتیجه اینجا نمایش داده می‌شود.</div></div>
+
+<div class="panel" id="unit"><h2>🔄 تبدیل واحد</h2><div class="row">
+<div class="field"><label>مقدار</label><input id="uVal" type="number" value="1"></div>
+<div class="field"><label>از</label><select id="uFrom"><option value="m">متر</option><option value="km">کیلومتر</option><option value="cm">سانتی‌متر</option><option value="kg">کیلوگرم</option><option value="g">گرم</option><option value="c">سلسیوس</option></select></div>
+<div class="field"><label>به</label><select id="uTo"><option value="km">کیلومتر</option><option value="m">متر</option><option value="cm">سانتی‌متر</option><option value="g">گرم</option><option value="kg">کیلوگرم</option><option value="f">فارنهایت</option></select></div>
+</div><button class="btn" onclick="convertUnit()">تبدیل</button><div class="result" id="uOut">—</div></div>
+
+<div class="panel" id="qr"><h2>📱 ساخت QR Code</h2><input id="qrText" placeholder="متن یا لینک را وارد کن"><button class="btn" onclick="makeQR()">ساخت QR</button><div class="result" id="qrOut">برای ساخت QR یک متن وارد کن.</div></div>
+
+<div class="panel" id="text"><h2>🔤 شمارشگر متن</h2><textarea id="textIn" placeholder="متنت را اینجا بنویس..."></textarea><div class="result" id="textOut">حروف: 0 | کلمات: 0 | خطوط: 0</div></div>
+
+<div class="panel" id="color"><h2>🎨 HEX / RGB</h2><div class="row"><div class="field"><label>HEX</label><input id="hex" value="#6f89ff"></div><div class="field"><label>RGB</label><input id="rgb" placeholder="111, 137, 255"></div></div><button class="btn" onclick="hexToRgb()">HEX → RGB</button><button class="btn alt" onclick="rgbToHex()">RGB → HEX</button><div class="colorbox" id="colorBox"></div><div class="result" id="colorOut">—</div></div>
+
+<div class="panel" id="timer"><h2>⏱️ تایمر</h2><div class="timer" id="clock">05:00</div><div class="row"><button class="btn" onclick="startTimer()">شروع</button><button class="btn alt" onclick="pauseTimer()">توقف</button><button class="btn alt" onclick="resetTimer()">بازنشانی</button></div></div>
+
+
+<div class="panel" id="bmi"><h2>⚖️ محاسبه BMI</h2><div class="row">
+<div class="field"><label>وزن (کیلوگرم)</label><input id="bmiW" type="number" step="0.1"></div>
+<div class="field"><label>قد (سانتی‌متر)</label><input id="bmiH" type="number" step="0.1"></div>
+</div><button class="btn" onclick="calcBMI()">محاسبه</button><div class="result" id="bmiOut">قد و وزن را وارد کن.</div></div>
+
+<div class="panel" id="age"><h2>🎂 محاسبه سن</h2><label>تاریخ تولد</label><input id="birth" type="date"><button class="btn" onclick="calcAge()">محاسبه</button><div class="result" id="ageOut">—</div></div>
+
+<div class="panel" id="percent"><h2>📊 محاسبه درصد</h2><div class="row"><div class="field"><label>عدد</label><input id="pctA" type="number"></div><div class="field"><label>درصد</label><input id="pctB" type="number"></div></div><button class="btn" onclick="calcPercent()">حساب درصد از عدد</button><div class="result" id="pctOut">—</div></div>
+
+<div class="panel" id="dateDiff"><h2>📅 فاصله دو تاریخ</h2><div class="row"><div class="field"><label>تاریخ اول</label><input id="dateA" type="date"></div><div class="field"><label>تاریخ دوم</label><input id="dateB" type="date"></div></div><button class="btn" onclick="calcDateDiff()">محاسبه</button><div class="result" id="dateOut">—</div></div>
+
+<div class="panel" id="wordRev"><h2>🔁 معکوس‌کننده متن</h2><textarea id="revIn" placeholder="متن را وارد کن..."></textarea><button class="btn" onclick="reverseText()">معکوس کن</button><div class="result" id="revOut">—</div></div>
+
+<div class="panel" id="slug"><h2>🔗 Slug ساز</h2><input id="slugIn" placeholder="مثلاً My New Article"><button class="btn" onclick="makeSlug()">ساخت Slug</button><div class="result" id="slugOut">—</div></div>
+
+<div class="panel" id="base64"><h2>🧩 Base64</h2><textarea id="b64In" placeholder="متن..."></textarea><button class="btn" onclick="toB64()">Encode</button><button class="btn alt" onclick="fromB64()">Decode</button><div class="result" id="b64Out">—</div></div>
+
+<div class="panel" id="json"><h2>{ } JSON Formatter</h2><textarea id="jsonIn" placeholder='{"name":"ToolBox","version":1}'></textarea><button class="btn" onclick="formatJSON()">مرتب‌سازی</button><div class="result" id="jsonOut">—</div></div>
+
+<div class="panel" id="pass"><h2>🔐 رمزساز</h2><div class="row"><div class="field"><label>طول رمز</label><input id="passLen" type="number" value="16" min="6" max="64"></div></div><button class="btn" onclick="makePass()">تولید رمز</button><div class="result" id="passOut">—</div></div>
+
+<div class="panel" id="random"><h2>🎲 عدد تصادفی</h2><div class="row"><div class="field"><label>حداقل</label><input id="randA" type="number" value="1"></div><div class="field"><label>حداکثر</label><input id="randB" type="number" value="100"></div></div><button class="btn" onclick="randomNum()">تولید</button><div class="result" id="randOut">—</div></div>
+
+
+<div class="panel" id="calc2"><h2>➗ درصد تغییر</h2><div class="row"><div class="field"><label>مقدار قدیمی</label><input id="oldVal" type="number"></div><div class="field"><label>مقدار جدید</label><input id="newVal" type="number"></div></div><button class="btn" onclick="changePct()">محاسبه</button><div class="result" id="changeOut">—</div></div>
+<div class="panel" id="tip"><h2>💵 محاسبه انعام</h2><div class="row"><div class="field"><label>مبلغ</label><input id="tipBill" type="number"></div><div class="field"><label>درصد انعام</label><input id="tipPct" type="number" value="10"></div><div class="field"><label>تعداد نفرات</label><input id="tipPeople" type="number" value="1" min="1"></div></div><button class="btn" onclick="calcTip()">محاسبه</button><div class="result" id="tipOut">—</div></div>
+<div class="panel" id="discount"><h2>🏷️ محاسبه تخفیف</h2><div class="row"><div class="field"><label>قیمت</label><input id="discPrice" type="number"></div><div class="field"><label>درصد تخفیف</label><input id="discPct" type="number"></div></div><button class="btn" onclick="calcDiscount()">محاسبه</button><div class="result" id="discOut">—</div></div>
+<div class="panel" id="words"><h2>🔠 تبدیل حروف</h2><textarea id="wordsIn"></textarea><button class="btn" onclick="upperText()">بزرگ</button><button class="btn alt" onclick="lowerText()">کوچک</button><div class="result" id="wordsOut">—</div></div>
+<div class="panel" id="removeSpace"><h2>🧹 پاک‌سازی متن</h2><textarea id="spaceIn"></textarea><button class="btn" onclick="cleanSpaces()">پاک‌سازی</button><div class="result" id="spaceOut">—</div></div>
+<div class="panel" id="sortLines"><h2>📑 مرتب‌سازی خطوط</h2><textarea id="sortIn"></textarea><button class="btn" onclick="sortTextLines()">مرتب کن</button><div class="result" id="sortOut">—</div></div>
+<div class="panel" id="countChars"><h2>🔢 شمارش کاراکتر</h2><textarea id="countIn"></textarea><div class="result" id="countOut">کاراکتر: 0</div></div>
+<div class="panel" id="urlEncode"><h2>🌐 URL Encoder</h2><textarea id="urlIn"></textarea><button class="btn" onclick="encodeURL()">Encode</button><button class="btn alt" onclick="decodeURL()">Decode</button><div class="result" id="urlOut">—</div></div>
+<div class="panel" id="htmlEscape"><h2>&lt;/&gt; HTML Escape</h2><textarea id="htmlIn"></textarea><button class="btn" onclick="escapeHTML()">Escape</button><div class="result" id="htmlOut">—</div></div>
+<div class="panel" id="timestamp"><h2>🕐 Unix Timestamp</h2><button class="btn" onclick="nowTimestamp()">زمان فعلی</button><div class="result" id="timeOut">—</div></div>
+<div class="panel" id="colorName"><h2>🌈 انتخاب رنگ</h2><input id="picker" type="color" value="#6f89ff" style="height:55px;padding:4px"><div class="result" id="pickerOut">#6f89ff</div></div>
+<div class="panel" id="imageInfo"><h2>🖼️ اطلاعات تصویر</h2><input id="imgFile" type="file" accept="image/*"><div class="result" id="imgOut">یک تصویر انتخاب کن.</div></div>
+<div class="panel" id="stopwatch"><h2>⏱️ کرنومتر</h2><div class="timer" id="swClock">00:00.0</div><button class="btn" onclick="swStart()">شروع</button><button class="btn alt" onclick="swStop()">توقف</button><button class="btn alt" onclick="swReset()">بازنشانی</button></div>
+<div class="panel" id="coin"><h2>🪙 شیر یا خط</h2><button class="btn" onclick="flipCoin()">پرتاب سکه</button><div class="result" id="coinOut">—</div></div>
+
+<footer>ToolBox — نسخه 1.0 | ساخته شده برای شروع 🚀</footer>
+</div>
+<script>
+const cards=[...document.querySelectorAll('.card')], panels=[...document.querySelectorAll('.panel')];
+cards.forEach(c=>c.onclick=()=>{panels.forEach(p=>p.classList.remove('active'));document.getElementById(c.dataset.tool).classList.add('active');document.getElementById(c.dataset.tool).scrollIntoView({behavior:'smooth',block:'center'})});
+let activeFilter='all';
+function filterCards(){
+ let q=document.getElementById('search').value.trim().toLowerCase();
+ cards.forEach(c=>{
+   let okCat=activeFilter==='all'||c.dataset.cat===activeFilter;
+   let okText=c.innerText.toLowerCase().includes(q);
+   c.style.display=(okCat&&okText)?'block':'none';
+ });
+}
+document.getElementById('search').oninput=filterCards;
+document.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));ch.classList.add('active');activeFilter=ch.dataset.filter;filterCards()});
+document.getElementById('theme').onclick=()=>{document.body.classList.toggle('light');document.getElementById('theme').textContent=document.body.classList.contains('light')?'🌙 حالت تاریک':'☀️ حالت روشن'};
+function calculate(){let s=document.getElementById('calcIn').value.replace(/[^0-9+\-*/().% ]/g,'');try{let r=Function('"use strict";return ('+s+')')();document.getElementById('calcOut').textContent='نتیجه: '+r}catch{document.getElementById('calcOut').textContent='عبارت نامعتبر است.'}}
+function convertUnit(){let v=+uVal.value,a=uFrom.value,b=uTo.value;let out;if((a==='c'&&b==='f'))out=v*9/5+32;else if(a==='f'&&b==='c')out=(v-32)*5/9;else{const f={m:1,km:1000,cm:.01,kg:1,g:.001};if(!(a in f)||!(b in f)||((a==='kg'||a==='g')&&(b==='m'||b==='km'||b==='cm'))||((a==='m'||a==='km'||a==='cm')&&(b==='kg'||b==='g'))){uOut.textContent='این دو واحد قابل تبدیل نیستند.';return}out=v*f[a]/f[b]}uOut.textContent='نتیجه: '+Number(out.toFixed(8))}
+function makeQR(){let t=encodeURIComponent(qrText.value.trim());if(!t){qrOut.textContent='متن یا لینک وارد کن.';return}qrOut.innerHTML='<img alt="QR Code" style="max-width:260px;width:100%" src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data='+t+'"><br><small>برای ساخت تصویر QR به اینترنت نیاز است.</small>'}
+textIn.oninput=()=>{let t=textIn.value;let words=t.trim()?t.trim().split(/\s+/).length:0;let lines=t?t.split(/\n/).length:0;textOut.textContent=`حروف: ${t.length} | کلمات: ${words} | خطوط: ${lines}`}
+function hexToRgb(){let h=hex.value.trim().replace('#','');if(!/^[0-9a-fA-F]{6}$/.test(h)){colorOut.textContent='HEX نامعتبر است.';return}let r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);rgb.value=`${r}, ${g}, ${b}`;colorOut.textContent=`RGB: ${r}, ${g}, ${b}`;colorBox.style.background='#'+h}
+function rgbToHex(){let m=rgb.value.match(/\d+/g);if(!m||m.length<3){colorOut.textContent='RGB نامعتبر است.';return}let [r,g,b]=m.map(Number);if([r,g,b].some(x=>x<0||x>255)){colorOut.textContent='مقادیر RGB باید بین 0 تا 255 باشند.';return}let h='#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join('');hex.value=h;colorOut.textContent='HEX: '+h;colorBox.style.background=h}
+let secs=300,interval=null;function draw(){let m=String(Math.floor(secs/60)).padStart(2,'0'),s=String(secs%60).padStart(2,'0');clock.textContent=m+':'+s}function startTimer(){if(interval)return;interval=setInterval(()=>{if(secs>0){secs--;draw()}else pauseTimer()},1000)}function pauseTimer(){clearInterval(interval);interval=null}function resetTimer(){pauseTimer();secs=300;draw()}draw();hexToRgb();
+
+function calcBMI(){
+  let w=Number(bmiW.value),h=Number(bmiH.value)/100;
+  if(w<=0||h<=0){bmiOut.textContent='مقادیر معتبر وارد کن.';return}
+  let x=w/(h*h);
+  bmiOut.textContent='BMI شما: '+x.toFixed(1)+' — این عدد فقط شاخص محاسباتی است؛ برای افراد زیر ۱۸ سال، تفسیر BMI باید با سن و جنس و نمودارهای رشد انجام شود و دسته‌بندی بزرگسالان مناسب نیست.';
+}
+function calcAge(){
+  if(!birth.value){ageOut.textContent='تاریخ تولد را وارد کن.';return}
+  let b=new Date(birth.value+'T00:00:00'),n=new Date();
+  let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),d=n.getDate()-b.getDate();
+  if(d<0){m--;d+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}
+  if(m<0){y--;m+=12}
+  ageOut.textContent=`سن تقریبی: ${y} سال و ${m} ماه و ${d} روز`;
+}
+function calcPercent(){let a=+pctA.value,b=+pctB.value;pctOut.textContent=(Number.isFinite(a)&&Number.isFinite(b))?`${b}% از ${a} = ${(a*b/100).toFixed(4)}`:'مقدار معتبر وارد کن.'}
+function calcDateDiff(){let a=new Date(dateA.value),b=new Date(dateB.value);if(isNaN(a)||isNaN(b)){dateOut.textContent='هر دو تاریخ را وارد کن.';return}dateOut.textContent='فاصله: '+Math.abs(Math.round((b-a)/86400000))+' روز'}
+function reverseText(){revOut.textContent=revIn.value.split('').reverse().join('')}
+function makeSlug(){let s=slugIn.value.trim().toLowerCase().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');slugOut.textContent=s||'—'}
+function toB64(){try{b64Out.textContent=btoa(unescape(encodeURIComponent(b64In.value)))}catch{b64Out.textContent='خطا'}}
+function fromB64(){try{b64Out.textContent=decodeURIComponent(escape(atob(b64In.value.trim())))}catch{b64Out.textContent='Base64 نامعتبر است.'}}
+function formatJSON(){try{jsonOut.textContent=JSON.stringify(JSON.parse(jsonIn.value),null,2)}catch{jsonOut.textContent='JSON نامعتبر است.'}}
+function makePass(){let n=Math.max(6,Math.min(64,+passLen.value||16)),chars='ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-';let s='';for(let i=0;i<n;i++)s+=chars[Math.floor(Math.random()*chars.length)];passOut.textContent=s}
+function randomNum(){let a=+randA.value,b=+randB.value;if(a>b)[a,b]=[b,a];randOut.textContent=String(Math.floor(Math.random()*(b-a+1))+a)}
+
+
+function changePct(){let a=+oldVal.value,b=+newVal.value;if(!isFinite(a)||!isFinite(b)||a===0){changeOut.textContent='مقادیر معتبر وارد کن و مقدار قدیمی صفر نباشد.';return}let x=(b-a)/Math.abs(a)*100;changeOut.textContent=(x>=0?'افزایش ':'کاهش ')+Math.abs(x).toFixed(2)+'٪'}
+function calcTip(){let bill=+tipBill.value,p=+tipPct.value,n=Math.max(1,+tipPeople.value||1);if(bill<0||p<0){tipOut.textContent='مقادیر معتبر وارد کن.';return}let tip=bill*p/100;tipOut.textContent=`انعام: ${tip.toFixed(2)} | مجموع: ${(bill+tip).toFixed(2)} | سهم هر نفر: ${((bill+tip)/n).toFixed(2)}`}
+function calcDiscount(){let price=+discPrice.value,p=+discPct.value;if(price<0||p<0){discOut.textContent='مقادیر معتبر وارد کن.';return}let off=price*p/100;discOut.textContent=`مبلغ تخفیف: ${off.toFixed(2)} | قیمت نهایی: ${(price-off).toFixed(2)}`}
+function upperText(){wordsOut.textContent=wordsIn.value.toUpperCase()}
+function lowerText(){wordsOut.textContent=wordsIn.value.toLowerCase()}
+function cleanSpaces(){spaceOut.textContent=spaceIn.value.replace(/[ \t]+/g,' ').replace(/\n[ \t]+/g,'\n').trim()}
+function sortTextLines(){sortOut.textContent=sortIn.value.split(/\r?\n/).filter(Boolean).sort((a,b)=>a.localeCompare(b,'fa')).join('\n')}
+countIn.oninput=()=>countOut.textContent='کاراکتر: '+countIn.value.length
+function encodeURL(){urlOut.textContent=encodeURIComponent(urlIn.value)}
+function decodeURL(){try{urlOut.textContent=decodeURIComponent(urlIn.value)}catch{urlOut.textContent='متن رمزگذاری‌شده نامعتبر است.'}}
+function escapeHTML(){htmlOut.textContent=htmlIn.value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+function nowTimestamp(){timeOut.textContent=Math.floor(Date.now()/1000)}
+picker.oninput=()=>pickerOut.textContent=picker.value
+imgFile.onchange=()=>{let f=imgFile.files[0];if(!f)return;let im=new Image();im.onload=()=>imgOut.textContent=`نام: ${f.name} | حجم: ${(f.size/1024).toFixed(1)} KB | ابعاد: ${im.naturalWidth}×${im.naturalHeight}`;im.src=URL.createObjectURL(f)}
+let swT=0,swI=null;function swDraw(){swClock.textContent=(swT/1000).toFixed(1).padStart(4,'0').replace(/^0/,'')+'s'}function swStart(){if(swI)return;let start=Date.now()-swT;swI=setInterval(()=>{swT=Date.now()-start;swDraw()},100)}function swStop(){clearInterval(swI);swI=null}function swReset(){swStop();swT=0;swClock.textContent='00:00.0'}
+function flipCoin(){coinOut.textContent=Math.random()<.5?'🪙 شیر':'🪙 خط'}
+let deferredPrompt;const installBtn=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;installBtn.classList.add('show')});
+installBtn.onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;installBtn.classList.remove('show')}};
+if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+</script>
+</body></html>
